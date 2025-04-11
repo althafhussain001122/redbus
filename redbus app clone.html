@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RedBus Clone</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #d32f2f;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .search-box {
+      background: white;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    .search-box input, .search-box button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .search-box button {
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .results {
+      max-width: 600px;
+      margin: 20px auto;
+    }
+    .bus-card {
+      background: white;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-left: 5px solid #d32f2f;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .bus-card h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+
+<header>RedBus Clone</header>
+
+<div class="search-box">
+  <input type="text" id="from" placeholder="From (e.g., Hyderabad)">
+  <input type="text" id="to" placeholder="To (e.g., Bangalore)">
+  <input type="date" id="date">
+  <button onclick="searchBuses()">Search Buses</button>
+</div>
+
+<div class="results" id="results"></div>
+
+<script>
+  const dummyBuses = [
+    {
+      name: "Orange Travels",
+      type: "AC Sleeper",
+      departure: "10:00 PM",
+      arrival: "6:00 AM",
+      price: "₹1200"
+    },
+    {
+      name: "VRL Travels",
+      type: "Non-AC Seater",
+      departure: "7:00 PM",
+      arrival: "5:30 AM",
+      price: "₹850"
+    },
+    {
+      name: "SRS Travels",
+      type: "AC Seater",
+      departure: "9:00 PM",
+      arrival: "6:00 AM",
+      price: "₹999"
+    }
+  ];
+
+  function searchBuses() {
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+    const date = document.getElementById("date").value;
+    const resultBox = document.getElementById("results");
+
+    if (!from || !to || !date) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    resultBox.innerHTML = `<h2 style="text-align:center;">Buses from ${from} to ${to} on ${date}</h2>`;
+
+    dummyBuses.forEach(bus => {
+      resultBox.innerHTML += `
+        <div class="bus-card">
+          <h3>${bus.name}</h3>
+          <p><strong>Type:</strong> ${bus.type}</p>
+          <p><strong>Departure:</strong> ${bus.departure}</p>
+          <p><strong>Arrival:</strong> ${bus.arrival}</p>
+          <p><strong>Price:</strong> ${bus.price}</p>
+          <button onclick="bookBus('${bus.name}')">Book Now</button>
+        </div>
+      `;
+    });
+  }
+
+  function bookBus(busName) {
+    alert(`Bus "${busName}" booked successfully! ✅`);
+  }
+</script>
+
+</body>
+</html>
